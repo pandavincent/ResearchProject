@@ -230,7 +230,9 @@
 				        console.log($(this).attr("href"));
 				        // for localhost change this to 
 				        if($(this).attr("href").slice(0,16)=="/clusterCSV/clus") {
-// 				        if($(this).attr("href").slice(0,5)=="clust") {
+
+				        //if($(this).attr("href").slice(0,5)=="clust") {
+
 				        	numFiles++;
 				       		var cluster = "Cluster"+numFiles;
 				       		container.append('<li style="cursor:pointer"><a>'+cluster+'</a></li>');
