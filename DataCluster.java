@@ -149,6 +149,7 @@ public class DataCluster {
                      File file = new File("cluster" + index + ".csv");       
                 } 
                 
+                System.out.println("generating cluster" + index + ".csv...");
                 BufferedWriter fileWriter = new BufferedWriter(new FileWriter("cluster" + index + ".csv"));
                 fileWriter.write("idORIG,idYIEFD"+"\n");
                 fileWriter.flush();
