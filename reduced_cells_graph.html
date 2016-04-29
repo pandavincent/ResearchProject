@@ -45,7 +45,7 @@
 			<tbody>
 				<tr>
 					<td style="padding:10px; vertical-align: top; border: 1px solid silver" >
-						<input type="file" id="txtFileUpload" style="max-width: 180px;">
+						<input type="file" id="txtFileUpload" style="max-width: 180px;" multiple="multiple">
 						<ul style=""id="clusterList">
 							
 						</ul>
@@ -60,7 +60,7 @@
 
 		<script>
 		$(document).ready(function() {
-		 	var numFiles = 0;
+			var numFiles = 0;
 		 	var container = $('#clusterList');
 		 	    // The event listener for the file upload
 		    document.getElementById('txtFileUpload').addEventListener('change', upload, false);
@@ -73,24 +73,74 @@
 		        }
 		        return isCompatible;
 		    }
+			
+		
+		
+
+			uploaded = [];
+// 			uploadedFiles = {};
+				
+
 		
 		    // Method that reads and processes the selected file
 		    function upload(evt) {
 		    if (!browserSupportFileUpload()) {
 		        alert('The File APIs are not fully supported in this browser!');
 		        } else {
-		            var data = null;
-		            var file = evt.target.files[0];
-		            var reader = new FileReader();
-		            reader.readAsText(file);
-		            reader.onload = function(event) {
-		                var csvData = event.target.result;
-		                var data = csvData.split('\n');
-		                
-		                console.log(data);
+			       
+// 					console.log(evt.target.files);
+				
+// 					console.log(uploaded);
+					for(fileNum = 0; fileNum<evt.target.files.length;fileNum++) {
+							
+						uploaded.push({});
+						var data = null;
+						var file = evt.target.files[fileNum];
+						uploaded[fileNum]["name"] = file.name;
+						uploaded[fileNum]["data"] = "";
 
-		                
-		                var network = new links.Network(document.getElementById('network'));
+// 						console.log(file);
+						container.append('<li style="cursor:pointer"><a id='+file.name+'>'+file.name+'</a></li>');
+						var reader = new FileReader();
+						reader.readAsText(file);
+						
+// 						console.log(file.name);
+						uploaded.push()
+						datas = [];
+						reader.onload = function(event) {
+							
+			                var csvData = event.target.result;
+			                var data = csvData.split('\n');
+							datas.push(data);
+// 							console.log(datas);
+
+			                makeArray(datas);
+			                
+						}
+
+					}
+
+					$('#clusterList li a').on("click", function(e){
+						
+						e.preventDefault();
+						var name = ($(this).attr('id'));
+						
+						var result = uploaded.filter(function( obj ) {
+						  return obj.name== name;
+						});
+						console.log(result);
+						draw(result[0].data);
+					});
+					
+					function makeArray(data) {
+						for(u=0;u<uploaded.length;u++) {
+							uploaded[u]["data"] = data[u];
+						}
+					}
+					console.log(uploaded);
+					
+					function draw(data) {
+						var network = new links.Network(document.getElementById('network'));
 		                var dot = 'digraph {node[shape=circle]; ';
 	                    for(i=0; i<=data.length;i++) {
 	                        if(data[i]) {
@@ -101,7 +151,7 @@
 
 	                        }
 	                       
-
+							
 	                    }
 	                    dot+="}";
 
@@ -142,13 +192,32 @@
 		                    alert('No data to import!');
 		                }
 */
+		            
+
+		                
+		               
 		            };
 		            reader.onerror = function() {
-		                alert('Unable to read ' + file.fileName);
-		            };
-		        }
+		            alert('Unable to read ' + file.fileName);
+		        	}
 		    }
+		}
 		});
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 /*
 	
 			//import from folder
