@@ -38,10 +38,6 @@ public class DataCluster {
                 int id1 = Integer.parseInt(tokens[0]);
                 int id2 = Integer.parseInt(tokens[1]);
                 
-                //Second run, comment out first run
-                //int id2 = Integer.parseInt(tokens[0]);
-                //int id1 = Integer.parseInt(tokens[1]);
-                
                 //Put the number and its corresponding number into map
                 if (idToConnectlist.get(id1) == null){
                     ArrayList<Integer> list = new ArrayList<Integer>();
